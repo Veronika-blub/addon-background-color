@@ -16,7 +16,7 @@ jobs:
           node-version: 22
 
       - name: Install npm, build
-        working-directory: addon-background-color
+        working-directory: .
         run: |
           npm install
           npm run build

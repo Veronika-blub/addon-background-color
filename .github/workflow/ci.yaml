@@ -1,0 +1,35 @@
+name: artefacts
+
+on:
+  push:        
+    branches:
+      - main
+
+jobs:
+  basic:
+    runs-on: ubuntu-latest 
+    steps:
+      # installe node js
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install npm, build
+        working-directory: addon-background-color
+        run: |
+          npm install
+          npm run build
+
+      - name:  zip
+        working-directory: .output
+        run: npm run pack:zip
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: .output/*.zip
+
+
+      
